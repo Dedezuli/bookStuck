@@ -1,0 +1,156 @@
+/// <reference types="Cypress" />
+import { faker } from '@faker-js/faker'
+import userPage from '../../../model/user'
+
+let password = faker.random.alphaNumeric(8)
+let email = faker.internet.email()
+describe('Create User', () => {
+  beforeEach(() => {
+    cy.visit('/')
+    cy.loginAccount()
+    cy.visit('/settings/users/create')
+  })
+  
+  it('C2250	- create user with input valid credential should be success created', function () {
+    cy.get(userPage.nameInput).click().type(faker.name.fullName())
+    cy.get(userPage.emailInput).click().type(email)
+    cy.get(userPage.checkbox1).click()
+    cy.get(userPage.checkbox2).click()
+    cy.get(userPage.checkbox3).click()
+    cy.get(userPage.passwordInput).click().type(password)
+    cy.get(userPage.passwordConfirmInput).click().type(password)
+    cy.get(userPage.submitButton).click()
+    cy.url().should('include', '/settings/users')
+  })
+
+  it('C2251	- create user without input name should be fail', function () {
+    cy.get(userPage.nameInput).click()
+    cy.get(userPage.emailInput).click().type(faker.internet.email())
+    cy.get(userPage.checkbox1).click()
+    cy.get(userPage.checkbox2).click()
+    cy.get(userPage.checkbox3).click()
+    cy.get(userPage.passwordInput).click().type(password)
+    cy.get(userPage.passwordConfirmInput).click().type(password)
+    cy.get(userPage.submitButton).click()
+    cy.get('.text-small').should('contain','The name field is required.')
+    cy.url().should('include', '/settings/users/create')
+  })
+
+  it('C2252 - create user without input email should be fail', function () {
+    cy.get(userPage.nameInput).click().type(faker.name.fullName())
+    cy.get(userPage.emailInput).click()
+    cy.get(userPage.checkbox1).click()
+    cy.get(userPage.checkbox2).click()
+    cy.get(userPage.checkbox3).click()
+    cy.get(userPage.passwordInput).click().type(password)
+    cy.get(userPage.passwordConfirmInput).click().type(password)
+    cy.get(userPage.submitButton).click()
+    cy.get('.text-small').should('contain','The email field is required.')
+    cy.url().should('include', '/settings/users/create')
+  })
+
+  it.skip('C2253	- create user without choose a role should be fail', function () {
+    cy.get(userPage.nameInput).click().type(faker.name.fullName())
+    cy.get(userPage.emailInput).click().type(faker.internet.email())
+    cy.get(userPage.passwordInput).click().type(password)
+    cy.get(userPage.passwordConfirmInput).click().type(password)
+    cy.get(userPage.submitButton).click()
+    cy.get('.text-small').should('contain','The role field is required.')
+    cy.url().should('include', '/settings/users/create')
+  })
+
+  it('C2254	- create user without input external auth ID should be success', function () {
+    cy.get(userPage.nameInput).click().type(faker.name.fullName())
+    cy.get(userPage.emailInput).click().type(faker.internet.email())
+    cy.get(userPage.checkbox1).click()
+    cy.get(userPage.checkbox2).click()
+    cy.get(userPage.checkbox3).click()
+    cy.get(userPage.passwordInput).click().type(password)
+    cy.get(userPage.passwordConfirmInput).click().type(password)
+    cy.get(userPage.submitButton).click()
+    cy.url().should('include', '/settings/users')
+  })
+
+  it('C2255	- create user with choose multiple role should be success ', function () {
+    cy.get(userPage.nameInput).click().type(faker.name.fullName())
+    cy.get(userPage.emailInput).click().type(faker.internet.email())
+    cy.get(userPage.checkbox1).click()
+    cy.get(userPage.checkbox2).click()
+    cy.get(userPage.checkbox3).click()
+    cy.get(userPage.passwordInput).click().type(password)
+    cy.get(userPage.passwordConfirmInput).click().type(password)
+    cy.get(userPage.submitButton).click()
+    cy.url().should('include', '/settings/users')
+  })
+  
+  it('C2256 -	create user with input password by invite email should be success', function () {
+    cy.get(userPage.nameInput).click().type(faker.name.fullName())
+    cy.get(userPage.emailInput).click().type(faker.internet.email())
+    cy.get(userPage.checkbox1).click()
+    cy.get(userPage.checkbox2).click()
+    cy.get(userPage.submitButton).click()
+    cy.url().should('include', '/settings/users')
+  })
+
+  it('C2257	- create user without input password and no check invite email should be fail', function () {
+    cy.get(userPage.nameInput).click().type(faker.name.fullName())
+    cy.get(userPage.emailInput).click().type(faker.internet.email())
+    cy.get(userPage.checkbox1).click()
+    cy.get(userPage.checkbox2).click()
+    cy.get(userPage.checkbox3).click()
+    cy.get(userPage.submitButton).click()
+    cy.get('.text-small').should('contain','The password field is required.')
+    cy.url().should('include', '/settings/users')
+  })
+
+  it('C2258 - create user without input confirm password should be fail', function () {
+    cy.get(userPage.nameInput).click().type(faker.name.fullName())
+    cy.get(userPage.emailInput).click().type(faker.internet.email())
+    cy.get(userPage.checkbox1).click()
+    cy.get(userPage.checkbox2).click()
+    cy.get(userPage.checkbox3).click()
+    cy.get(userPage.passwordInput).click().type(password)
+    cy.get(userPage.submitButton).click()
+    cy.get('.text-small').should('contain','The password-confirm field is required.')
+    cy.url().should('include', '/settings/users')
+  })
+
+  it('C2259	- create user with input registered email should be fail)', function () {
+    cy.get(userPage.nameInput).click().type(faker.name.fullName())
+    cy.get(userPage.emailInput).click().type(email)
+    cy.get(userPage.checkbox1).click()
+    cy.get(userPage.checkbox2).click()
+    cy.get(userPage.checkbox3).click()
+    cy.get(userPage.passwordInput).click().type(password)
+    cy.get(userPage.passwordConfirmInput).click().type(password)
+    cy.get(userPage.submitButton).click() 
+    cy.get('.text-small').should('contain','The email has already been taken.')
+    cy.url().should('include', '/settings/users')
+  })
+
+  it('C2260	- create user with different input password and confirm password should be fail ', function () {
+    cy.get(userPage.nameInput).click().type(faker.name.fullName())
+    cy.get(userPage.emailInput).click().type(faker.internet.email())
+    cy.get(userPage.checkbox1).click()
+    cy.get(userPage.checkbox2).click()
+    cy.get(userPage.checkbox3).click()
+    cy.get(userPage.passwordInput).click().type(password)
+    cy.get(userPage.passwordConfirmInput).click().type(email)
+    cy.get(userPage.submitButton).click()
+    cy.get('.text-small').should('contain','The password-confirm and password must match.')
+    cy.url().should('include', '/settings/users')
+  })
+
+  it('C2261	- create user with choos another country should be success ', function () {
+    cy.get(userPage.nameInput).click().type(faker.name.fullName())
+    cy.get(userPage.emailInput).click().type(faker.internet.email())
+    cy.get(userPage.checkbox1).click()
+    cy.get(userPage.checkbox2).click()
+    cy.get(userPage.checkbox3).click()
+    cy.get(userPage.passwordInput).click().type(password)
+    cy.get(userPage.passwordConfirmInput).click().type(password)
+    cy.get(userPage.selectLang).select('ca')
+    cy.get(userPage.submitButton).click()
+    cy.url().should('include', '/settings/users')
+  })
+})
