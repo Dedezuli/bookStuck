@@ -5,7 +5,7 @@ import userPage from '../../../model/user'
 let password = faker.random.alphaNumeric(8)
 let email = faker.internet.email()
 
-describe('Create User', () => {
+describe('Delete User', () => {
   before(() => {
     cy.visit('/')
     cy.loginAccount()
