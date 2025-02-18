@@ -3,9 +3,8 @@ import { faker } from '@faker-js/faker'
 import userPage from '../../model/user'
 
 let password = faker.random.alphaNumeric(8)
-let email = faker.internet.email()
 
-Cypress.Commands.add('createUser', function () {
+Cypress.Commands.add('createUser', function (email) {
   cy.visit('/settings/users/create')
   cy.get(userPage.nameInput).click().type(faker.name.fullName())
   cy.get(userPage.emailInput).click().type(email)

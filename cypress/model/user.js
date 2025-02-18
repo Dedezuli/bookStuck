@@ -10,5 +10,7 @@ export default {
   passwordInput: '#password',
   passwordConfirmInput: '#password-confirm',
   submitButton: 'button.button',
-  selectLang : '#user-language'
+  selectLang : '#user-language',
+  search : '.block > form > input',
+  userList : '.flex-2'
 }

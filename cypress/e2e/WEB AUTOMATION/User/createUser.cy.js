@@ -11,7 +11,7 @@ describe('Create User', () => {
     cy.visit('/settings/users/create')
   })
   
-  it('C2250	- create user with input valid credential should be success created', function () {
+  it.only('C2250	- create user with input valid credential should be success created', function () {
     cy.get(userPage.nameInput).click().type(faker.name.fullName())
     cy.get(userPage.emailInput).click().type(email)
     cy.get(userPage.checkbox1).click()
@@ -20,6 +20,7 @@ describe('Create User', () => {
     cy.get(userPage.passwordInput).click().type(password)
     cy.get(userPage.passwordConfirmInput).click().type(password)
     cy.get(userPage.submitButton).click()
+    cy.contains('successfully').should('be.visible')
     cy.url().should('include', '/settings/users')
   })
 
@@ -59,7 +60,7 @@ describe('Create User', () => {
     cy.url().should('include', '/settings/users/create')
   })
 
-  it('C2254	- create user without input external auth ID should be success', function () {
+  it.only('C2254	- create user without input external auth ID should be success', function () {
     cy.get(userPage.nameInput).click().type(faker.name.fullName())
     cy.get(userPage.emailInput).click().type(faker.internet.email())
     cy.get(userPage.checkbox1).click()
@@ -68,10 +69,11 @@ describe('Create User', () => {
     cy.get(userPage.passwordInput).click().type(password)
     cy.get(userPage.passwordConfirmInput).click().type(password)
     cy.get(userPage.submitButton).click()
+    cy.contains('successfully').should('be.visible')
     cy.url().should('include', '/settings/users')
   })
 
-  it('C2255	- create user with choose multiple role should be success ', function () {
+  it.only('C2255	- create user with choose multiple role should be success ', function () {
     cy.get(userPage.nameInput).click().type(faker.name.fullName())
     cy.get(userPage.emailInput).click().type(faker.internet.email())
     cy.get(userPage.checkbox1).click()
@@ -80,15 +82,17 @@ describe('Create User', () => {
     cy.get(userPage.passwordInput).click().type(password)
     cy.get(userPage.passwordConfirmInput).click().type(password)
     cy.get(userPage.submitButton).click()
+    cy.contains('successfully').should('be.visible')
     cy.url().should('include', '/settings/users')
   })
   
-  it('C2256 -	create user with input password by invite email should be success', function () {
+  it.only('C2256 -	create user with input password by invite email should be success', function () {
     cy.get(userPage.nameInput).click().type(faker.name.fullName())
     cy.get(userPage.emailInput).click().type(faker.internet.email())
     cy.get(userPage.checkbox1).click()
     cy.get(userPage.checkbox2).click()
     cy.get(userPage.submitButton).click()
+    cy.contains('successfully').should('be.visible')
     cy.url().should('include', '/settings/users')
   })
 
@@ -141,7 +145,7 @@ describe('Create User', () => {
     cy.url().should('include', '/settings/users')
   })
 
-  it('C2261	- create user with choos another country should be success ', function () {
+  it.only('C2261	- create user with choos another country should be success ', function () {
     cy.get(userPage.nameInput).click().type(faker.name.fullName())
     cy.get(userPage.emailInput).click().type(faker.internet.email())
     cy.get(userPage.checkbox1).click()
@@ -151,6 +155,7 @@ describe('Create User', () => {
     cy.get(userPage.passwordConfirmInput).click().type(password)
     cy.get(userPage.selectLang).select('ca')
     cy.get(userPage.submitButton).click()
+    cy.contains('successfully').should('be.visible')
     cy.url().should('include', '/settings/users')
   })
 })

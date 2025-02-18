@@ -18,6 +18,8 @@ import './commands'
 import './login/login'
 import 'cypress-file-upload'
 import 'cypress-mochawesome-reporter/register'
+import 'cypress-plugin-api';
+
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 require('cypress-plugin-tab')
