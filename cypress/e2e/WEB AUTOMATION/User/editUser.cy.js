@@ -6,7 +6,7 @@ let password = faker.random.alphaNumeric(8)
 let email = faker.internet.email()
 
 describe('Edit User', () => {
-  beforeEach(() => {
+  before(() => {
     cy.visit('/')
     cy.loginAccount()
     cy.createUser(email,password)
@@ -22,7 +22,7 @@ describe('Edit User', () => {
 
   // case ini akan failed, karena ekpektasi saya owner bisa edit
   it('C2264	- edit user with owner user should be success', function () {
-    cy.get('.block > form > input').type(email).type('{enter}')
+    cy.get('.block > form > input').type(email1).type('{enter}')
     cy.get('.flex-2').click()
     cy.get(userPage.nameInput).clear().type(faker.name.fullName())
     cy.get(userPage.submitButton).click()
@@ -30,6 +30,10 @@ describe('Edit User', () => {
   })
 
   it('C2266	- edit users with accounts that dont have permission should be fail', function () {
+    let email1 = faker.internet.email()
+    cy.visit('/')
+    cy.loginAccount()
+    cy.createUser(email1,password)
     cy.get('.block > form > input').type(email).type('{enter}')
     cy.get('.flex-2').click()
     cy.get(userPage.nameInput).clear().type(faker.name.fullName())

@@ -49,8 +49,8 @@ describe('Create User', () => {
     cy.get('.text-small').should('contain','The email field is required.')
     cy.url().should('include', '/settings/users/create')
   })
-
-  it.skip('C2253	- create user without choose a role should be fail', function () {
+  // testcase ini akan failed karena ekpektasi saya role harus dipilih
+  it('C2253	- create user without choose a role should be fail', function () {
     cy.get(userPage.nameInput).click().type(faker.name.fullName())
     cy.get(userPage.emailInput).click().type(faker.internet.email())
     cy.get(userPage.passwordInput).click().type(password)
