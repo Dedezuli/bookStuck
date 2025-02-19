@@ -2,7 +2,7 @@
 import userData from '../../../fixtures/data/user.json'
 import loginPage from '../../../model/login'
 
-describe.only('Login Sanity', () => {
+describe('Login Sanity', () => {
   beforeEach(() => {
     cy.visit('/login')
     cy.viewport(1920, 1080)

@@ -29,7 +29,7 @@ describe('Edit User', () => {
     cy.contains('success').should('be.visible')
   })
 
-  it.only('C2266	- edit users with accounts that dont have permission should be fail', function () {
+  it('C2266	- edit users with accounts that dont have permission should be fail', function () {
     cy.get('.block > form > input').type(email).type('{enter}')
     cy.get('.flex-2').click()
     cy.get(userPage.nameInput).clear().type(faker.name.fullName())
